@@ -4,12 +4,13 @@ import styles from "./Button.module.css";
 
 interface ButtonProps {
     name: "phone" | "mail";
+    link?: string;
 }
 
 export const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     return (
-        <div className={styles.wrap}>
+        <a className={styles.wrap} href={props.link}>
             <Icon name={props.name} size="big" className={styles.button} />
-        </div>
+        </a>
     );
 };

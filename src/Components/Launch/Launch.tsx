@@ -18,7 +18,11 @@ export const LaunchView: React.FC<LaunchProps> = (props: LaunchProps) => {
     return (
         <div id="launchContainer">
             <div>
-                <h1>{client.description}</h1>
+                {client.description && (
+                    <h1 style={{ fontWeight: 300, fontSize: "24px" }}>
+                        {client.description}
+                    </h1>
+                )}
                 <Button
                     size="massive"
                     color="blue"

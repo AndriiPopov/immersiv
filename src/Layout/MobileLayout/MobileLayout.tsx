@@ -2,7 +2,16 @@ import React from "react";
 
 import StreamViewWrapper from "../../Components/StreamView/StreamView";
 import { Button } from "./Button";
+import clientConfig from "../../client.json";
+const client: ClientJson = clientConfig as ClientJson;
 
+class ClientJson {
+    description?: string = "description";
+    title?: string = "title";
+    phone?: string = "0459 239 699";
+    phoneLink?: string = "+61459239699";
+    mail?: string = "christian@visualartstudios.com.au";
+}
 interface MobileLayoutProps {
     width: number;
     height: number;
@@ -15,13 +24,14 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (
         <div style={{ flex: 1 }}>
             <StreamViewWrapper />;
             <img
-                src="/images/logo-desktop.png"
+                src="/images/logo-white.png"
                 alt="logo"
                 style={{
                     position: "absolute",
                     top: "30px",
                     right: "30px",
                     zIndex: 1,
+                    width: "100px",
                 }}
             />
             <div
@@ -36,8 +46,8 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (
                     flexDirection: "row",
                 }}
             >
-                <Button name="phone"></Button>
-                <Button name="mail"></Button>
+                <Button link={`tel:${client.phoneLink}`} name="phone"></Button>
+                <Button link={`mailto:${client.mail}`} name="mail"></Button>
             </div>
         </div>
     );

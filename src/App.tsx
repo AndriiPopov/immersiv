@@ -11,7 +11,7 @@ import { MobileLayout } from "./Layout/MobileLayout/MobileLayout";
 
 const App: React.FC = () => {
     const [width, height] = useWindowSize();
-    const isMobile = isMobileAgent || width < 800 || height < 500;
+    const isMobile = isMobileAgent || width < 1200 || height < 700;
 
     return isMobile ? (
         <MobileLayout width={width} height={height} />

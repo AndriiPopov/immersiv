@@ -8,22 +8,20 @@ export const Contacts: React.FC<ContactsProps> = (props: ContactsProps) => {
     return (
         <div
             style={{
-                padding: "50px",
+                padding: "0px 50px 0px 20px",
                 visibility: props.invisible ? "hidden" : "visible",
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
+                justifyContent: "end",
                 position: "relative",
+                fontSize: "13px",
             }}
         >
-            <div>CONTACT AGENT</div>
-            <div>Phone number</div>
-            <div>Address</div>
-            <div>Email address</div>
+            Powered by
             <img
-                src="/images/logo-desktop.png"
+                src="/images/logo-black.png"
                 alt="logo"
-                style={{ position: "absolute", bottom: 0 }}
+                style={{ width: "150px" }}
             />
         </div>
     );
