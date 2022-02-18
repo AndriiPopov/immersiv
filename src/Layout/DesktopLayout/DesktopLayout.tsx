@@ -35,7 +35,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (
         >
             <div
                 style={{
-                    paddingBottom: "20px",
+                    paddingBottom: "30px",
                     paddingLeft: "100px",
                     paddingRight: "100px",
                     fontSize: "34px",
@@ -80,7 +80,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (
 
                 <div
                     style={{
-                        paddingTop: "20px",
+                        paddingTop: "30px",
                         fontSize: "24px",
                         height: "120px",
                         display: "flex",
