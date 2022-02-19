@@ -17,6 +17,7 @@ interface ViewProps {
     UseNativeTouchEvents: boolean;
     UsePointerLock: boolean;
     PointerLockRelease: boolean;
+    setLoaded: (loaded: boolean) => void;
 }
 
 export const EmbeddedView: React.FC<ViewProps> = (props: ViewProps) => {
@@ -40,6 +41,7 @@ export const EmbeddedView: React.FC<ViewProps> = (props: ViewProps) => {
             <LoadingView
                 LaunchRequestStatus={props.LaunchRequestStatus}
                 StreamerStatus={props.StreamerStatus}
+                setLoaded={props.setLoaded}
             />
             <VideoStream
                 VideoRef={videoRef}

@@ -15,6 +15,9 @@ interface LaunchProps {
 }
 
 export const LaunchView: React.FC<LaunchProps> = (props: LaunchProps) => {
+    // useEffect(() => {
+    //     setTimeout(() => props.Launch(), 5000);
+    // }, []);
     return (
         <div id="launchContainer">
             <div>

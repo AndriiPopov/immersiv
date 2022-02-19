@@ -8,6 +8,7 @@ import {
 interface LoadingProps {
     LaunchRequestStatus: LaunchStatusEvent;
     StreamerStatus: StreamerStatus;
+    setLoaded: (loaded: boolean) => void;
 }
 
 export const LoadingView: React.FC<LoadingProps> = (props: LoadingProps) => {
@@ -15,12 +16,14 @@ export const LoadingView: React.FC<LoadingProps> = (props: LoadingProps) => {
         props.StreamerStatus === StreamerStatus.Connected ||
         props.StreamerStatus === StreamerStatus.Completed
     ) {
+        props.setLoaded(true);
         return <div />;
     }
 
     let content;
 
     if (props.StreamerStatus === StreamerStatus.NotSupported) {
+        props.setLoaded(true);
         content = (
             <div>
                 <h3>
@@ -35,6 +38,7 @@ export const LoadingView: React.FC<LoadingProps> = (props: LoadingProps) => {
         props.LaunchRequestStatus.status === LaunchStatusType.Error ||
         props.StreamerStatus === StreamerStatus.Failed
     ) {
+        props.setLoaded(true);
         content = (
             <div>
                 <h3>The experience is presently unavailable.</h3>

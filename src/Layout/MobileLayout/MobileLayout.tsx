@@ -13,8 +13,8 @@ class ClientJson {
     mail?: string = "christian@visualartstudios.com.au";
 }
 interface MobileLayoutProps {
-    width: number;
-    height: number;
+    setLoaded: (loaded: boolean) => void;
+    loaded: boolean;
 }
 
 export const MobileLayout: React.FC<MobileLayoutProps> = (
@@ -22,18 +22,20 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (
 ) => {
     return (
         <div style={{ flex: 1 }}>
-            <StreamViewWrapper />;
-            <img
-                src="/images/logo-white.png"
-                alt="logo"
-                style={{
-                    position: "absolute",
-                    top: "30px",
-                    right: "30px",
-                    zIndex: 1,
-                    width: "100px",
-                }}
-            />
+            <StreamViewWrapper setLoaded={props.setLoaded} />;
+            {props.loaded && (
+                <img
+                    src="/images/logo-white.png"
+                    alt="logo"
+                    style={{
+                        position: "absolute",
+                        top: "30px",
+                        right: "30px",
+                        zIndex: 1,
+                        width: "100px",
+                    }}
+                />
+            )}
             <div
                 style={{
                     position: "absolute",

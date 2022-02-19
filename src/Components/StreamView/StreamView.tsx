@@ -119,7 +119,11 @@ platform.initialize({
     endpoint: clientOptions.Endpoint || "https://api.pureweb.io",
 });
 
-const StreamView: React.FC = () => {
+interface StreamViewProps {
+    setLoaded: (loaded: boolean) => void;
+}
+
+const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
     const [modelDefinitionUnavailable, setModelDefinitionUnavailable] =
         useState(false);
     const [modelDefinition, setModelDefinition] = useState(
@@ -129,6 +133,46 @@ const StreamView: React.FC = () => {
     const [launchRequestError, setLaunchRequestError] = useState<Error>();
     const streamerOptions = DefaultStreamerOptions;
 
+    const launchRequestOptions: LaunchRequestOptions = {
+        regionOverride: query["regionOverride"] as string,
+        virtualizationProviderOverride: query[
+            "virtualizationProviderOverride"
+        ] as string,
+    };
+    const [status, launchRequest, queueLaunchRequest] = useLaunchRequest(
+        platform,
+        modelDefinition,
+        launchRequestOptions
+    );
+    const [streamerStatus, emitter, videoStream, audioStream] = useStreamer(
+        platform,
+        launchRequest,
+        streamerOptions
+    );
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (streamerStatus === StreamerStatus.Failed) {
+            platform.disconnect();
+        }
+    }, [streamerStatus]);
+
+    if (audioStream) {
+        audio.srcObject = audioStream;
+    }
+
+    const launch = async () => {
+        setLoading(true);
+        audio.load();
+
+        if (clientOptions.LaunchType !== "local") {
+            try {
+                await queueLaunchRequest();
+            } catch (err) {
+                setLaunchRequestError(err);
+            }
+        }
+    };
     useAsyncEffect(async () => {
         if (clientOptions.ProjectId) {
             logger.info(
@@ -152,7 +196,6 @@ const StreamView: React.FC = () => {
             }
         }
     }, [clientOptions]);
-
     useEffect(() => {
         if (availableModels?.length) {
             const selectedModels = availableModels.filter(function (
@@ -181,64 +224,16 @@ const StreamView: React.FC = () => {
         }
     }, [availableModels]);
 
-    const launchRequestOptions: LaunchRequestOptions = {
-        regionOverride: query["regionOverride"] as string,
-        virtualizationProviderOverride: query[
-            "virtualizationProviderOverride"
-        ] as string,
-    };
-    const [status, launchRequest, queueLaunchRequest] = useLaunchRequest(
-        platform,
-        modelDefinition,
-        launchRequestOptions
-    );
-    const [streamerStatus, emitter, videoStream, audioStream, messageSubject] =
-        useStreamer(platform, launchRequest, streamerOptions);
-    const [loading, setLoading] = useState(false);
-
     useEffect(() => {
-        if (streamerStatus === StreamerStatus.Failed) {
-            platform.disconnect();
-        }
-    }, [streamerStatus]);
+        if (modelDefinition.type === 0) return;
 
-    if (audioStream) {
-        audio.srcObject = audioStream;
-    }
-
-    const launch = async () => {
-        setLoading(true);
-        audio.load();
-
-        if (clientOptions.LaunchType !== "local") {
-            try {
-                await queueLaunchRequest();
-            } catch (err) {
-                setLaunchRequestError(err);
-            }
-        }
-    };
+        launch();
+    }, [modelDefinition]);
 
     // Log status messages
     useEffect(() => {
         logger.info("Status", status, streamerStatus);
     }, [status, streamerStatus]);
-
-    // Subscribe to game messages
-    useEffect(() => {
-        const subscription = messageSubject.subscribe(
-            (value: string) => {
-                logger.info("Message: " + value);
-            },
-            (err) => {
-                logger.error(err);
-            }
-        );
-
-        return () => {
-            subscription.unsubscribe();
-        };
-    }, [messageSubject]);
 
     // Notify user of missing or errors in configuration
     if (!clientOptions.isValid()) {
@@ -373,6 +368,7 @@ const StreamView: React.FC = () => {
                 UseNativeTouchEvents={clientOptions.UseNativeTouchEvents!}
                 UsePointerLock={clientOptions.UsePointerLock!}
                 PointerLockRelease={clientOptions.PointerLockRelease!}
+                setLoaded={props.setLoaded}
             />
         );
     } else if (clientOptions.LaunchType !== "local" && !availableModels) {
@@ -415,7 +411,13 @@ const StreamView: React.FC = () => {
     }
 };
 
-const StreamViewWrapper: React.FC = () => {
+interface StreamViewWrapperProps {
+    setLoaded: (loaded: boolean) => void;
+}
+
+const StreamViewWrapper: React.FC<StreamViewWrapperProps> = (
+    props: StreamViewWrapperProps
+) => {
     return System.IsBrowserSupported() ? (
         <div
             style={{
@@ -425,7 +427,7 @@ const StreamViewWrapper: React.FC = () => {
                 display: "flex",
             }}
         >
-            <StreamView />
+            <StreamView setLoaded={props.setLoaded} />
         </div>
     ) : (
         <div className="ui red segment center aligned basic">

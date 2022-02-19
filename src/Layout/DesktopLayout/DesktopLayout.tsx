@@ -14,8 +14,7 @@ class ClientJson {
 }
 
 interface DesktopLayoutProps {
-    width: number;
-    height: number;
+    setLoaded: (loaded: boolean) => void;
 }
 
 export const DesktopLayout: React.FC<DesktopLayoutProps> = (
@@ -62,9 +61,10 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (
                             right: 0,
                             display: "flex",
                             border: "8px black solid",
+                            borderRadius: "10px",
                         }}
                     >
-                        <StreamViewWrapper />
+                        <StreamViewWrapper setLoaded={props.setLoaded} />
                     </div>
                 </div>
                 <Contacts />
@@ -94,7 +94,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (
                         style={{
                             padding: "20px 50px",
                             borderRadius: "10px",
-                            backgroundColor: "#808080",
+                            backgroundColor: "black",
                             width: "320px",
                             height: "100%",
                             display: "flex",
@@ -127,7 +127,7 @@ export const DesktopLayout: React.FC<DesktopLayoutProps> = (
                         style={{
                             padding: "10px",
                             borderRadius: "10px",
-                            backgroundColor: "#808080",
+                            backgroundColor: "black",
                             width: "320px",
                             display: "flex",
                             height: "100%",
