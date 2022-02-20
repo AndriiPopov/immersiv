@@ -432,6 +432,7 @@ const StreamViewWrapper: React.FC<StreamViewWrapperProps> = (
                 height: "100%",
                 flex: 1,
                 display: "flex",
+                color: "white",
             }}
         >
             <StreamView setLoaded={props.setLoaded} />
