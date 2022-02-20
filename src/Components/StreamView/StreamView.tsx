@@ -428,7 +428,7 @@ const StreamViewWrapper: React.FC<StreamViewWrapperProps> = (
     return System.IsBrowserSupported() ? (
         <div
             style={{
-                backgroundColor: "white",
+                backgroundColor: "black",
                 height: "100%",
                 flex: 1,
                 display: "flex",
