@@ -2,7 +2,9 @@ import React from "react";
 
 import StreamViewWrapper from "../../Components/StreamView/StreamView";
 import { Button } from "./Button";
+import styles from "./MobileLayout.module.css";
 import clientConfig from "../../client.json";
+
 const client: ClientJson = clientConfig as ClientJson;
 
 class ClientJson {
@@ -27,27 +29,10 @@ export const MobileLayout: React.FC<MobileLayoutProps> = (
                 <img
                     src="/images/logo-white.png"
                     alt="logo"
-                    style={{
-                        position: "absolute",
-                        top: "30px",
-                        right: "30px",
-                        zIndex: 1,
-                        width: "100px",
-                    }}
+                    className={styles.logo}
                 />
             )}
-            <div
-                style={{
-                    position: "absolute",
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    height: 80,
-                    backgroundColor: "rgba(0,0,0,.2)",
-                    display: "flex",
-                    flexDirection: "row",
-                }}
-            >
+            <div className={styles.center}>
                 <Button link={`tel:${client.phoneLink}`} name="phone"></Button>
                 <Button link={`mailto:${client.mail}`} name="mail"></Button>
             </div>

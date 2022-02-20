@@ -237,6 +237,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
 
     // Notify user of missing or errors in configuration
     if (!clientOptions.isValid()) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -263,6 +264,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
     }
 
     if (modelDefinitionUnavailable) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -281,6 +283,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
     }
 
     if (launchRequestError) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -304,6 +307,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
 
     // Begin connection
     if (streamerStatus === StreamerStatus.Disconnected) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -322,6 +326,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
     }
 
     if (streamerStatus === StreamerStatus.Failed) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -341,6 +346,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
     }
 
     if (streamerStatus === StreamerStatus.Withdrawn) {
+        props.setLoaded(true);
         return (
             <div
                 style={{
@@ -391,6 +397,7 @@ const StreamView: React.FC<StreamViewProps> = (props: StreamViewProps) => {
         clientOptions.LaunchType !== "local" &&
         !availableModels?.length
     ) {
+        props.setLoaded(true);
         return (
             <div
                 style={{

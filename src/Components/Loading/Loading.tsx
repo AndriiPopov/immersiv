@@ -1,5 +1,7 @@
 import React from "react";
 
+import styles from "./Loading.module.css";
+
 interface LoadingProps {
     loaded: boolean;
     mobile?: boolean;
@@ -7,54 +9,14 @@ interface LoadingProps {
 
 export const Loading: React.FC<LoadingProps> = (props: LoadingProps) => {
     return props.loaded ? null : (
-        <div
-            style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "black",
-                color: "white",
-                flexDirection: "column",
-            }}
-        >
+        <div className={styles.wrap}>
             <img
                 src="/images/logo-white.png"
                 alt="logo"
-                style={{
-                    position: "absolute",
-                    top: "30px",
-                    right: "30px",
-                    zIndex: 1,
-                    width: "100px",
-                }}
+                className={styles.logo}
             />
-            <div
-                style={{
-                    padding: "100px",
-                    flex: 1,
-                    boxSizing: "border-box",
-                    position: "relative",
-                    display: "flex",
-                    width: "100%",
-                }}
-            >
-                <div
-                    style={{
-                        position: "absolute",
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
+            <div className={styles.center}>
+                <div className={styles.video}>
                     <video autoPlay loop muted>
                         <source
                             src={"/videos/Immersiv-logo.mp4"}

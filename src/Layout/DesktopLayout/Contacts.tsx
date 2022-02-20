@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Contacts.module.css";
 
 interface ContactsProps {
     invisible?: boolean;
@@ -7,14 +8,9 @@ interface ContactsProps {
 export const Contacts: React.FC<ContactsProps> = (props: ContactsProps) => {
     return (
         <div
+            className={styles.wrap}
             style={{
-                padding: "0px 50px 0px 20px",
                 visibility: props.invisible ? "hidden" : "visible",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "end",
-                position: "relative",
-                fontSize: "13px",
             }}
         >
             Powered by
