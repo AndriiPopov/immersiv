@@ -15,6 +15,6 @@ const connectionString = isProduction
 module.exports = new Sequalize(connectionString, {
     dialect: "postgres",
     dialectOptions: {
-        ssl: true,
+        ssl: { require: isProduction, rejectUnauthorized: false },
     },
 });
