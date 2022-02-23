@@ -27,6 +27,7 @@
         "pino": "^7.8.0",
         "pino-pretty": "^7.5.1",
         "sendmail": "^1.6.1",
-        "sequelize": "^6.16.2"
+        "sequelize": "^6.16.2",
+        "ssl-express-www": "^3.0.8"
     }
 }

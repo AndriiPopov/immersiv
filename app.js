@@ -11,9 +11,11 @@ const compression = require("compression");
 const unknownEndpoint = require("./middleware/unKnownEndpoint");
 const { handleError } = require("./helpers/error");
 const Sequalize = require("sequelize");
+const secure = require("ssl-express-www");
 
 const app = express();
 
+app.use(secure);
 app.set("trust proxy", 1);
 app.use(cors({ credentials: true }));
 app.use(express.json());
