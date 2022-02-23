@@ -14,7 +14,7 @@ const html = require("../helpers/signup");
 
 const url =
     process.env.NODE_ENV === "production"
-        ? "https://immersiv.com.au"
+        ? "https://immersiv.herokuapp.com"
         : "http://localhost:3000";
 
 const signupMail = async (to, name) => {
