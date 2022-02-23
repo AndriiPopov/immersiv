@@ -15,7 +15,7 @@ const Sequalize = require("sequelize");
 const app = express();
 
 app.set("trust proxy", 1);
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+app.use(cors({ credentials: true }));
 app.use(express.json());
 // app.use(morgan("dev"));
 app.use(compression());
