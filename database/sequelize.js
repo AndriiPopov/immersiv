@@ -12,4 +12,9 @@ const connectionString = isProduction
     ? process.env.DATABASE_URL
     : `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${database}`;
 
-module.exports = new Sequalize(connectionString, { dialect: "postgres" });
+module.exports = new Sequalize(connectionString, {
+    dialect: "postgres",
+    dialectOptions: {
+        ssl: true,
+    },
+});
