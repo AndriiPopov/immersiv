@@ -7,12 +7,33 @@ const admin = require("./admin");
 const constant = require("./constant");
 
 const sequelize = require("../database/sequelize");
-require("../models/admin.model");
+const adminModel = require("../models/admin.model");
 require("../models/constant.model");
 require("../models/project.model");
 require("../models/token.model");
 
-sequelize.sync({ alter: true });
+sequelize
+    .sync({ alter: true })
+    .then(() => {
+        adminModel.findOrCreate({
+            where: { email: "andriy.popov.vl@gmail.com" },
+            defaults: { email: "andriy.popov.vl@gmail.com", locked: true },
+        });
+
+        adminModel.findOrCreate({
+            where: { email: "christian@visualartstudios.com.au" },
+            defaults: {
+                email: "christian@visualartstudios.com.au",
+                locked: true,
+            },
+        });
+
+        adminModel.findOrCreate({
+            where: { email: "clint@visualartstudios.com.au" },
+            defaults: { email: "clint@visualartstudios.com.au", locked: true },
+        });
+    })
+    .catch((err) => {});
 
 router.use("/constant", constant);
 router.use("/projects", project);
