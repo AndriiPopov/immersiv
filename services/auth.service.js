@@ -23,10 +23,7 @@ class AuthService {
                 throw new ErrorHandler(403, "Email or password incorrect.");
             }
 
-            if (user.google_id && !user.password) {
-                throw new ErrorHandler(403, "Login in with Google");
-            }
-
+            console.log(user);
             const {
                 password: dbPassword,
                 user_id,
@@ -35,6 +32,11 @@ class AuthService {
                 fullname,
                 username,
             } = user;
+
+            if (!dbPassword) {
+                throw new ErrorHandler(403, "Email or password incorrect.");
+            }
+
             const isCorrectPassword = await bcrypt.compare(
                 password,
                 dbPassword

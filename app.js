@@ -39,6 +39,6 @@ app.get("/*", function (req, res) {
 });
 
 app.use(unknownEndpoint);
-// app.use(handleError);
+app.use(handleError);
 
 module.exports = app;
