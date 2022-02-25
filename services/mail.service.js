@@ -6,7 +6,7 @@ const sendmail =
         ? nodemailer.createTransport({
               host: "smtp.mailgun.org",
               port: 587,
-              secure: false, // upgrade later with STARTTLS
+              secure: true, // upgrade later with STARTTLS
               auth: {
                   user: process.env.NODE_ENV.MAILGUN_SMTP_LOGIN,
                   pass: process.env.NODE_ENV.MAILGUN_SMTP_PASSWORD,
@@ -30,9 +30,9 @@ const url =
         ? "https://immersiv.herokuapp.com"
         : "http://localhost:3000";
 
-const signupMail = async (to, name) => {
+const signupMail = (to, name) => {
     try {
-        await sendmail({
+        sendmail({
             from: "immersiv@gmail.com",
             to,
             subject: "Welcome to IMMERSIV",
