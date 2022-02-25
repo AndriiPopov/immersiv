@@ -17,7 +17,14 @@ const app = express();
 
 app.use(secure);
 app.set("trust proxy", 1);
-app.use(cors({ credentials: true }));
+app.use(
+    cors({
+        credentials: true,
+        ...(process.env.NODE_ENV === "production"
+            ? {}
+            : { origin: "http://localhost:3000" }),
+    })
+);
 app.use(express.json());
 // app.use(morgan("dev"));
 app.use(compression());
