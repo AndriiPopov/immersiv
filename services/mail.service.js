@@ -11,7 +11,7 @@ const sendmail =
                   user: process.env.NODE_ENV.MAILGUN_SMTP_LOGIN,
                   pass: process.env.NODE_ENV.MAILGUN_SMTP_PASSWORD,
               },
-          })
+          }).sendMail
         : require("sendmail")({
               logger: {
                   debug: console.log,
