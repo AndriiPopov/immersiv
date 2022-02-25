@@ -1,22 +1,33 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
-var mailgun = require("mailgun-js")({
-    apiKey: process.env.MAILGUN_API_KEY || "1",
-    domain: process.env.MAILGUN_DOMAIN || "1",
+const formData = require("form-data");
+const Mailgun = require("mailgun.js");
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({
+    username: "api",
+    key: process.env.MAILGUN_API_KEY || "key-yourkeyhere",
 });
 
-const sendmail =
-    process.env.NODE_ENV === "production"
-        ? mailgun.messages().send
-        : require("sendmail")({
-              logger: {
-                  debug: console.log,
-                  info: console.info,
-                  warn: console.warn,
-                  error: console.error,
-              },
-          });
+const sendmail = (data) => {
+    mg.messages
+        .create(process.env.MAILGUN_DOMAIN, {
+            ...data,
+            from: `info@${process.env.MAILGUN_DOMAIN}`,
+        })
+        .then((msg) => console.log(msg)) // logs response data
+        .catch((err) => console.log(err)); // logs any error
+};
+// process.env.NODE_ENV === "production"
+// ?
+// : require("sendmail")({
+//       logger: {
+//           debug: console.log,
+//           info: console.info,
+//           warn: console.warn,
+//           error: console.error,
+//       },
+//   });
 
 const { logger } = require("../utils/logger");
 const { ErrorHandler } = require("../helpers/error");
@@ -42,6 +53,7 @@ const signupMail = (to, name) => {
 
 const forgotPasswordMail = async (token, email) => {
     try {
+        console.log("email", email);
         const res = await sendmail(
             {
                 to: email,
@@ -52,7 +64,11 @@ const forgotPasswordMail = async (token, email) => {
                     token
                 )}&email=${email}"><br/>
       Reset Password
-      </a></p>
+
+      </a>
+      <br/>
+      ${url}/reset-password?token=${encodeURIComponent(token)}&email=${email}
+      </p>
       <p><b>Note that this link will expire in the next one(1) hour.</b></p>`,
             },
             function (err, reply) {
