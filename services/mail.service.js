@@ -1,17 +1,14 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
+var mailgun = require("mailgun-js")({
+    apiKey: process.env.MAILGUN_API_KEY || "1",
+    domain: process.env.MAILGUN_DOMAIN || "1",
+});
+
 const sendmail =
     process.env.NODE_ENV === "production"
-        ? nodemailer.createTransport({
-              host: "smtp.mailgun.org",
-              port: 587,
-              secure: true, // upgrade later with STARTTLS
-              auth: {
-                  user: process.env.MAILGUN_SMTP_LOGIN,
-                  pass: process.env.MAILGUN_SMTP_PASSWORD,
-              },
-          }).sendMail
+        ? mailgun.messages().send
         : require("sendmail")({
               logger: {
                   debug: console.log,
