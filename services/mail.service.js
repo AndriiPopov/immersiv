@@ -8,8 +8,8 @@ const sendmail =
               port: 587,
               secure: true, // upgrade later with STARTTLS
               auth: {
-                  user: process.env.NODE_ENV.MAILGUN_SMTP_LOGIN,
-                  pass: process.env.NODE_ENV.MAILGUN_SMTP_PASSWORD,
+                  user: process.env.MAILGUN_SMTP_LOGIN,
+                  pass: process.env.MAILGUN_SMTP_PASSWORD,
               },
           }).sendMail
         : require("sendmail")({
