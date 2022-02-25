@@ -1,12 +1,25 @@
 require("dotenv").config();
-const sendmail = require("sendmail")({
-    logger: {
-        debug: console.log,
-        info: console.info,
-        warn: console.warn,
-        error: console.error,
-    },
-});
+const nodemailer = require("nodemailer");
+
+const sendmail =
+    process.env.NODE_ENV === "production"
+        ? nodemailer.createTransport({
+              host: "smtp.mailgun.org",
+              port: 587,
+              secure: false, // upgrade later with STARTTLS
+              auth: {
+                  user: process.env.NODE_ENV.MAILGUN_SMTP_LOGIN,
+                  pass: process.env.NODE_ENV.MAILGUN_SMTP_PASSWORD,
+              },
+          })
+        : require("sendmail")({
+              logger: {
+                  debug: console.log,
+                  info: console.info,
+                  warn: console.warn,
+                  error: console.error,
+              },
+          });
 
 const { logger } = require("../utils/logger");
 const { ErrorHandler } = require("../helpers/error");
