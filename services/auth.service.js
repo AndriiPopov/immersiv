@@ -127,14 +127,10 @@ class AuthService {
         }
     }
 
-    async resetPassword(password, password2, token, email) {
+    async resetPassword(password, token, email) {
         const curDate = moment().format();
         const isValidPassword =
             typeof password === "string" && password.trim().length >= 6;
-
-        if (password !== password2) {
-            throw new ErrorHandler(400, "Password do not match.");
-        }
 
         if (!isValidPassword) {
             throw new ErrorHandler(

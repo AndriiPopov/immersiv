@@ -91,9 +91,9 @@ const refreshToken = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-    const { password, password2, token, email } = req.body;
+    const { password, token, email } = req.body;
 
-    await authService.resetPassword(password, password2, token, email);
+    await authService.resetPassword(password, token, email);
 
     res.json({
         status: "OK",
