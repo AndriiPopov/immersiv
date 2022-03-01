@@ -11,11 +11,11 @@ const compression = require("compression");
 const unknownEndpoint = require("./middleware/unKnownEndpoint");
 const { handleError } = require("./helpers/error");
 const Sequalize = require("sequelize");
-const secure = require("ssl-express-www");
+const sslRedirect = require("heroku-ssl-redirect");
 
 const app = express();
+app.use(sslRedirect());
 
-app.use(secure);
 app.set("trust proxy", 1);
 app.use(
     cors({
