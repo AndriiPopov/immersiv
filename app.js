@@ -11,9 +11,11 @@ const compression = require("compression");
 const unknownEndpoint = require("./middleware/unKnownEndpoint");
 const { handleError } = require("./helpers/error");
 const Sequalize = require("sequelize");
+const enforce = require("express-sslify");
 
 const app = express();
 
+app.use(enforce.HTTPS());
 app.set("trust proxy", 1);
 app.use(
     cors({
