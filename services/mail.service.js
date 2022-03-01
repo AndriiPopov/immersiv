@@ -35,7 +35,7 @@ const html = require("../helpers/signup");
 
 const url =
     process.env.NODE_ENV === "production"
-        ? "https://www.immersiv.com.au"
+        ? "https://tour.immersiv.com.au"
         : "http://localhost:3000";
 
 const signupMail = (to, name) => {
