@@ -40,7 +40,10 @@ db.propertyModel.belongsTo(db.projectModel, {
 });
 
 db.sequelize
-    .sync({ alter: true })
+    .sync({
+        // alter: true,
+        force: true,
+    })
     .then(() => {
         adminModel.findOrCreate({
             where: { email: "andriy.popov.vl@gmail.com" },
