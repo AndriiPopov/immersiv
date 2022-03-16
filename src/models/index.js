@@ -45,22 +45,19 @@ db.sequelize
         // force: true,
     })
     .then(() => {
-        db.adminModel.findOrCreate({
-            where: { email: "andriy.popov.vl@gmail.com" },
-            defaults: { email: "andriy.popov.vl@gmail.com", locked: true },
+        db.adminModel.create({
+            email: "andriy.popov.vl@gmail.com",
+            locked: true,
         });
 
-        db.adminModel.findOrCreate({
-            where: { email: "christian@visualartstudios.com.au" },
-            defaults: {
-                email: "christian@visualartstudios.com.au",
-                locked: true,
-            },
+        db.adminModel.create({
+            email: "christian@visualartstudios.com.au",
+            locked: true,
         });
 
-        db.adminModel.findOrCreate({
-            where: { email: "clint@visualartstudios.com.au" },
-            defaults: { email: "clint@visualartstudios.com.au", locked: true },
+        db.adminModel.create({
+            email: "clint@visualartstudios.com.au",
+            locked: true,
         });
     })
     .catch((err) => {});
