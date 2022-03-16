@@ -7,6 +7,11 @@ const getProjectProperties = async (req, res) => {
     res.json(properties);
 };
 
+const getProjectPropertiesForUE = async (req, res) => {
+    const properties = await propertyService.getProjectPropertiesForUE(req);
+    res.json(properties);
+};
+
 const createProperty = async (req, res) => {
     const { projectId } = req.params;
 
@@ -61,4 +66,5 @@ module.exports = {
     deleteProperty,
     getProjectProperties,
     updateAvailability,
+    getProjectPropertiesForUE,
 };

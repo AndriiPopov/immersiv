@@ -6,6 +6,7 @@ const {
     updateProperty,
     deleteProperty,
     updateAvailability,
+    getProjectPropertiesForUE,
 } = require("../controllers/property.controller");
 
 const {
@@ -14,6 +15,7 @@ const {
     verifyProjectAdmin,
 } = require("../middleware/verifyRights");
 
+router.route("/properties-ue").post(getProjectPropertiesForUE);
 router
     .route("/:projectId")
     .get(getProjectProperties)

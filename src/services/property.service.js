@@ -16,6 +16,32 @@ class ProjectService {
         }
     };
 
+    getProjectPropertiesForUE = async (req) => {
+        try {
+            const { body } = req;
+            console.log(body);
+            const { projectId, modelId } = body;
+            if (!projectId || !modelId)
+                throw new ErrorHandler(404, "projectId or modelId not found");
+            const project = await projectModel.findOne({
+                where: {
+                    projectId,
+                    modelId,
+                },
+            });
+            if (!project)
+                throw new ErrorHandler(
+                    404,
+                    "project for this projectId and modelId not found"
+                );
+            return await propertyModel.findAll({
+                where: { projectId: project.id },
+            });
+        } catch (error) {
+            throw new ErrorHandler(error.statusCode, error.message);
+        }
+    };
+
     createProperty = async (projectId, data) => {
         try {
             await checkProject(projectId);
