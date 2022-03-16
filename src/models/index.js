@@ -41,16 +41,16 @@ db.propertyModel.belongsTo(db.projectModel, {
 
 db.sequelize
     .sync({
-        // alter: true,
-        force: true,
+        alter: true,
+        // force: true,
     })
     .then(() => {
-        adminModel.findOrCreate({
+        db.adminModel.findOrCreate({
             where: { email: "andriy.popov.vl@gmail.com" },
             defaults: { email: "andriy.popov.vl@gmail.com", locked: true },
         });
 
-        adminModel.findOrCreate({
+        db.adminModel.findOrCreate({
             where: { email: "christian@visualartstudios.com.au" },
             defaults: {
                 email: "christian@visualartstudios.com.au",
@@ -58,7 +58,7 @@ db.sequelize
             },
         });
 
-        adminModel.findOrCreate({
+        db.adminModel.findOrCreate({
             where: { email: "clint@visualartstudios.com.au" },
             defaults: { email: "clint@visualartstudios.com.au", locked: true },
         });
