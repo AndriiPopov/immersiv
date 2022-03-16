@@ -21,19 +21,19 @@ const getProjectByUrl = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-    const { id } = req.params;
+    const { projectId } = req.params;
 
     const updatedProject = await projectService.updateProject({
         updateData: req.body,
-        id,
+        id: projectId,
     });
     res.status(200).json(updatedProject);
 };
 
 const deleteProject = async (req, res) => {
-    const { id } = req.params;
+    const { projectId } = req.params;
 
-    const deletedProject = await projectService.removeProject(id);
+    const deletedProject = await projectService.removeProject(projectId);
     res.status(200).json(deletedProject);
 };
 

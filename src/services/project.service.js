@@ -12,10 +12,10 @@ class ProjectService {
 
     getProjectByUrl = async (data) => {
         try {
-            const { id } = data;
+            const { url } = data;
 
             const project = await projectModel.findOne({
-                where: { url: id },
+                where: url === "__featured__" ? { featured: true } : { url },
                 attributes: { exclude: ["adminEmail", "adminPassword"] },
             });
             if (!project) {
@@ -39,17 +39,9 @@ class ProjectService {
 
     getProject = async (data) => {
         try {
-            const { id } = data;
-            let project;
-            if (id === "__featured__")
-                project = await projectModel.findOne({
-                    where: { featured: true },
-                    attributes: { exclude: ["adminEmail", "adminPassword"] },
-                });
-            else
-                project = await projectModel.findByPk(id, {
-                    attributes: { exclude: ["adminEmail", "adminPassword"] },
-                });
+            const { projectId } = data;
+
+            const project = await projectModel.findByPk(projectId);
             if (!project) {
                 throw new ErrorHandler(404, "project not found");
             }

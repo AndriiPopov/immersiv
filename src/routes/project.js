@@ -8,19 +8,23 @@ const {
     getProjectByUrl,
 } = require("../controllers/project.controller");
 const { loginUser } = require("../controllers/auth.controller");
-const { verifyToken, verifySuperAdmin } = require("../middleware/verifyRights");
+const {
+    verifyToken,
+    verifySuperAdmin,
+    verifyProjectAdmin,
+} = require("../middleware/verifyRights");
+
+router.route("/url/:url").get(getProjectByUrl);
+
+router
+    .route("/:projectId")
+    .get(verifyToken, verifyProjectAdmin, getProject)
+    .put(verifyToken, verifySuperAdmin, updateProject)
+    .delete(verifyToken, verifySuperAdmin, deleteProject);
 
 router
     .route("/")
     .get(verifyToken, verifySuperAdmin, getAllProjects)
     .post(verifyToken, verifySuperAdmin, createProject);
-
-router
-    .route("/:id")
-    .get(getProject)
-    .put(verifyToken, verifySuperAdmin, updateProject)
-    .delete(verifyToken, verifySuperAdmin, deleteProject);
-
-router.route("/url/:id").get(getProjectByUrl);
 
 module.exports = router;

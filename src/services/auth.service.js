@@ -123,7 +123,6 @@ class AuthService {
 
     async forgotPassword(email) {
         const user = await adminModel.findByPk(email);
-        console.log(await adminModel.findAll());
 
         if (user) {
             try {

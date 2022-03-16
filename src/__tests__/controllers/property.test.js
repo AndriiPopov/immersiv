@@ -175,7 +175,6 @@ describe("Property", () => {
             response = await api
                 .get(`/api/properties/${project0.id}/${response.body[0].id}`)
                 .expect(200);
-            console.log(project0);
             expect(response.body).toMatchObject({
                 name: "property0",
                 status: "available",
