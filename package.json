@@ -1,10 +1,10 @@
 {
-    "name": "testexpress",
-    "version": "1.0.0",
-    "description": "",
+    "name": "immersiv",
+    "version": "1.1.0",
+    "description": "Nodejs Expressjs server for IMMERSIVE app",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest -i --colors --verbose --detectOpenHandles --watch",
         "start": "node index.js",
         "dev": "nodemon index.js"
     },
@@ -34,5 +34,9 @@
         "pino-pretty": "^7.5.1",
         "sendmail": "^1.6.1",
         "sequelize": "^6.16.2"
+    },
+    "devDependencies": {
+        "jest": "^27.5.1",
+        "supertest": "^6.2.2"
     }
 }
