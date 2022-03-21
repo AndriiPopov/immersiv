@@ -1,100 +1,94 @@
-const { ErrorHandler } = require("../helpers/error");
-const { projectModel, propertyModel } = require("../models");
+const { ErrorHandler } = require('../helpers/error')
+const { projectModel, propertyModel } = require('../models')
 
 const checkProject = async (projectId) => {
-    const project = await projectModel.findByPk(projectId);
-    if (!project) throw new ErrorHandler(404, "No project");
-};
+    const project = await projectModel.findByPk(projectId)
+    if (!project) throw new ErrorHandler(404, 'No project')
+}
 
 class ProjectService {
     getProjectProperties = async (projectId) => {
         try {
-            await checkProject(projectId);
-            return await propertyModel.findAll({ where: { projectId } });
+            await checkProject(projectId)
+            return await propertyModel.findAll({ where: { projectId } })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
-    getProjectPropertiesForUE = async (req) => {
+    getProjectPropertiesForUE = async (ueProjectId) => {
         try {
-            const { body } = req;
-            console.log(body);
-            const { projectId, modelId } = body;
-            if (!projectId || !modelId)
-                throw new ErrorHandler(404, "projectId or modelId not found");
+            if (!ueProjectId)
+                throw new ErrorHandler(404, 'projectId or modelId not found')
             const project = await projectModel.findOne({
-                where: {
-                    projectId,
-                    modelId,
-                },
-            });
+                where: { projectId: ueProjectId },
+            })
             if (!project)
                 throw new ErrorHandler(
                     404,
-                    "project for this projectId and modelId not found"
-                );
+                    'project for this projectId not found'
+                )
             return await propertyModel.findAll({
                 where: { projectId: project.id },
-            });
+            })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
     createProperty = async (projectId, data) => {
         try {
-            await checkProject(projectId);
-            await propertyModel.create({ ...data, projectId });
-            return await propertyModel.findAll({ where: { projectId } });
+            await checkProject(projectId)
+            await propertyModel.create({ ...data, projectId })
+            return await propertyModel.findAll({ where: { projectId } })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
     getProperty = async (projectId, id) => {
         try {
-            await checkProject(projectId);
+            await checkProject(projectId)
             return await propertyModel.findOne({
                 where: { id, projectId },
-            });
+            })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
     updateProperty = async (data, projectId, id) => {
         try {
-            await checkProject(projectId);
+            await checkProject(projectId)
             await propertyModel.update(data, {
                 where: {
                     id,
                     projectId,
                 },
-            });
+            })
             return await propertyModel.findAll({
                 where: { projectId },
-            });
+            })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
     deleteProperty = async (projectId, id) => {
         try {
-            await checkProject(projectId);
-            await propertyModel.destroy({ where: { projectId, id } });
+            await checkProject(projectId)
+            await propertyModel.destroy({ where: { projectId, id } })
             return await propertyModel.findAll({
                 where: { projectId },
-            });
+            })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 
     updateAvailability = async (data, projectId, id) => {
         try {
-            await checkProject(projectId);
+            await checkProject(projectId)
             await propertyModel.update(
                 { status: data.status },
                 {
@@ -103,14 +97,14 @@ class ProjectService {
                         projectId,
                     },
                 }
-            );
+            )
             return await propertyModel.findAll({
                 where: { projectId },
-            });
+            })
         } catch (error) {
-            throw new ErrorHandler(error.statusCode, error.message);
+            throw new ErrorHandler(error.statusCode, error.message)
         }
-    };
+    }
 }
 
-module.exports = new ProjectService();
+module.exports = new ProjectService()

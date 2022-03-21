@@ -4,3 +4,4 @@ node_modules
 .package-lock
 request.http
 *.rest
+google-credentials.json
