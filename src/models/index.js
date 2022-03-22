@@ -33,10 +33,10 @@ db.projectModel = require('./project.model.js')(sequelize, Sequelize)
 db.tokenModel = require('./token.model.js')(sequelize, Sequelize)
 db.propertyModel = require('./property.model.js')(sequelize, Sequelize)
 
-db.propertyModel.sync({
-    // alter: true,
-    force: true,
-})
+// db.propertyModel.sync({
+//     // alter: true,
+//     force: true,
+// })
 
 db.projectModel.hasMany(db.propertyModel, { as: 'properties' })
 db.propertyModel.belongsTo(db.projectModel, {
