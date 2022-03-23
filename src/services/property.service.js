@@ -6,6 +6,10 @@ const checkProject = async (projectId) => {
     if (!project) throw new ErrorHandler(404, 'No project')
 }
 
+const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 class ProjectService {
     getProjectProperties = async (projectId) => {
         try {
@@ -28,9 +32,26 @@ class ProjectService {
                     404,
                     'project for this projectId not found'
                 )
-            return await propertyModel.findAll({
+            const properties = await propertyModel.findAll({
                 where: { projectId: project.id },
+                raw: true,
+                attributes: { exclude: ['id', 'projectId'] },
             })
+
+            if (properties) {
+                return properties.map((p) => {
+                    return {
+                        ...p,
+                        Availability: capitalizeFirstLetter(p.Availability),
+                        Orientation: {
+                            E: !!p.Orientation.E,
+                            W: !!p.Orientation.W,
+                            N: !!p.Orientation.N,
+                            S: !!p.Orientation.S,
+                        },
+                    }
+                })
+            }
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }
