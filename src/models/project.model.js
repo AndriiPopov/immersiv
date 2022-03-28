@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
     const Project = sequelize.define(
-        "project",
+        'project',
         {
             url: {
-                field: "url",
+                field: 'url',
                 type: DataTypes.STRING,
                 unique: true,
                 allowNull: false,
@@ -14,31 +14,39 @@ module.exports = (sequelize, DataTypes) => {
                 },
             },
             projectId: {
-                field: "projectId",
+                field: 'projectId',
                 type: DataTypes.STRING,
             },
             modelId: {
-                field: "modelId",
+                field: 'modelId',
                 type: DataTypes.STRING,
             },
             logo: {
-                field: "logo",
+                field: 'logo',
                 type: DataTypes.STRING,
             },
             name: {
-                field: "name",
+                field: 'name',
                 type: DataTypes.STRING,
             },
             published: {
-                field: "published",
+                field: 'published',
+                type: DataTypes.BOOLEAN,
+            },
+            mobileNativeEvents: {
+                field: 'mobileNativeEvents',
+                type: DataTypes.BOOLEAN,
+            },
+            desktopNativeEvents: {
+                field: 'desktopNativeEvents',
                 type: DataTypes.BOOLEAN,
             },
             featured: {
-                field: "featured",
+                field: 'featured',
                 type: DataTypes.BOOLEAN,
             },
             adminEmail: {
-                field: "email",
+                field: 'email',
                 type: DataTypes.STRING,
                 validate: {
                     isEmail: true,
@@ -48,17 +56,17 @@ module.exports = (sequelize, DataTypes) => {
                 trim: true,
             },
             adminPassword: {
-                field: "password",
+                field: 'password',
                 type: DataTypes.STRING,
             },
             analytic: {
-                field: "analytic",
+                field: 'analytic',
                 type: DataTypes.STRING,
             },
         },
         {
             timestamps: false,
         }
-    );
-    return Project;
-};
+    )
+    return Project
+}
