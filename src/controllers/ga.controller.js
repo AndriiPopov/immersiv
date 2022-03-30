@@ -7,6 +7,11 @@ const getGA = async (req, res) => {
     res.json(data)
 }
 
+const getAccessToken = async (req, res) => {
+    gaService.getAccessToken(res)
+}
+
 module.exports = {
     getGA,
+    getAccessToken,
 }
