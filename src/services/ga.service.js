@@ -29,7 +29,7 @@ class GAService {
             const { body } = req
             const { metrics, dimensions, start, finish } = body
 
-            const project = checkProject(projectId)
+            const project = await checkProject(projectId)
             if (!project.analytic)
                 throw new ErrorHandler(404, 'No view id for this project')
 
