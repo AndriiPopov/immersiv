@@ -57,11 +57,34 @@ class ProjectService {
         }
     }
 
-    createProperty = async (projectId, data) => {
+    createProperty = async (projectId, id) => {
         try {
             await checkProject(projectId)
-            await propertyModel.create({ ...data, projectId })
-            return await propertyModel.findAll({ where: { projectId } })
+            let template = null
+            if (id) {
+                template = await propertyModel.findOne({
+                    where: { id, projectId },
+                    raw: true,
+                })
+            }
+            template = template || {
+                Name: 'Property',
+                Surface: 0,
+                Price: 0,
+                BedroomsCount: 0,
+                BathroomsCount: 0,
+                Orientation: { E: true },
+                Availability: 'available',
+            }
+            delete template.id
+            const newProperty = await propertyModel.create({
+                ...template,
+                projectId,
+            })
+            const newProperties = await propertyModel.findAll({
+                where: { projectId },
+            })
+            return { newProperties, newProperty }
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }
@@ -95,10 +118,10 @@ class ProjectService {
         }
     }
 
-    deleteProperty = async (projectId, id) => {
+    deleteProperty = async (projectId, ids) => {
         try {
             await checkProject(projectId)
-            await propertyModel.destroy({ where: { projectId, id } })
+            await propertyModel.destroy({ where: { projectId, id: ids } })
             return await propertyModel.findAll({
                 where: { projectId },
             })

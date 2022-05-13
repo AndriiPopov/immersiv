@@ -28,6 +28,11 @@ router
     .delete(verifyToken, verifySuperAdmin, deleteProperty)
 
 router
+    .route('/:projectId/delete')
+    .get(getProperty)
+    .post(verifyToken, verifySuperAdmin, deleteProperty)
+
+router
     .route('/:projectId/status/:id')
     .put(verifyToken, verifyProjectAdmin, updateAvailability)
 

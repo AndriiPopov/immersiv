@@ -18,11 +18,11 @@ const getProjectPropertiesForUE = async (req, res) => {
 const createProperty = async (req, res) => {
     const { projectId } = req.params
 
-    const newProperty = await propertyService.createProperty(
+    const newProperies = await propertyService.createProperty(
         projectId,
-        req.body
+        req.body.id
     )
-    res.status(200).json(newProperty)
+    res.status(200).json(newProperies)
 }
 
 const getProperty = async (req, res) => {
@@ -43,9 +43,12 @@ const updateProperty = async (req, res) => {
 }
 
 const deleteProperty = async (req, res) => {
-    const { projectId, id } = req.params
+    const { projectId } = req.params
 
-    const deletedProperty = await propertyService.deleteProperty(projectId, id)
+    const deletedProperty = await propertyService.deleteProperty(
+        projectId,
+        req.body.ids
+    )
     res.status(200).json(deletedProperty)
 }
 
