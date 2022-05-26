@@ -51,7 +51,7 @@ db.sequelize
     })
     .then(() => {})
     .catch((err) => {})
-// db.projectModel.update({ media: [] }, { where: { media: null } })
+db.projectModel.update({ media: [] }, { where: { media: null } })
 
 db.adminModel.findOrCreate({
     where: { email: 'andriy.popov.vl@gmail.com' },
