@@ -63,6 +63,17 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'analytic',
                 type: DataTypes.STRING,
             },
+            media: {
+                field: 'media',
+                type: DataTypes.TEXT,
+                get: function () {
+                    return JSON.parse(this.getDataValue('media'))
+                },
+                set: function (val) {
+                    return this.setDataValue('media', JSON.stringify(val))
+                },
+                defaultValue: '[]',
+            },
         },
         {
             timestamps: false,

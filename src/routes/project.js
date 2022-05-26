@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const router = require('express').Router()
 const {
     getAllProjects,
     createProject,
@@ -6,25 +6,35 @@ const {
     updateProject,
     deleteProject,
     getProjectByUrl,
-} = require("../controllers/project.controller");
-const { loginUser } = require("../controllers/auth.controller");
+    addMedia,
+    deleteMedia,
+    moveMedia,
+} = require('../controllers/project.controller')
+const { loginUser } = require('../controllers/auth.controller')
 const {
     verifyToken,
     verifySuperAdmin,
     verifyProjectAdmin,
-} = require("../middleware/verifyRights");
+} = require('../middleware/verifyRights')
 
-router.route("/url/:url").get(getProjectByUrl);
+router.route('/url/:url').get(getProjectByUrl)
 
 router
-    .route("/:projectId")
+    .route('/:projectId')
     .get(verifyToken, verifyProjectAdmin, getProject)
     .put(verifyToken, verifySuperAdmin, updateProject)
-    .delete(verifyToken, verifySuperAdmin, deleteProject);
+    .delete(verifyToken, verifySuperAdmin, deleteProject)
+
+router.route('/:projectId/media').post(verifyToken, verifySuperAdmin, addMedia)
 
 router
-    .route("/")
-    .get(verifyToken, verifySuperAdmin, getAllProjects)
-    .post(verifyToken, verifySuperAdmin, createProject);
+    .route('/:projectId/media/:mediaId')
+    .put(verifyToken, verifySuperAdmin, moveMedia)
+    .delete(verifyToken, verifySuperAdmin, deleteMedia)
 
-module.exports = router;
+router
+    .route('/')
+    .get(verifyToken, verifySuperAdmin, getAllProjects)
+    .post(verifyToken, verifySuperAdmin, createProject)
+
+module.exports = router
