@@ -32,6 +32,7 @@ app.use(compression())
 app.use(cookieParser())
 
 app.use('/api', routes)
+app.use('/gallery', express.static(path.join(__dirname, 'buildGallery')))
 app.use('/gallery/*', express.static(path.join(__dirname, 'buildGallery')))
 app.use(express.static(path.join(__dirname, 'build')))
 
