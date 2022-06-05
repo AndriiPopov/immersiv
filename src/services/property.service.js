@@ -20,12 +20,11 @@ class ProjectService {
         }
     }
 
-    getProjectPropertiesForUE = async (ueProjectId) => {
+    getProjectPropertiesForUE = async (url) => {
         try {
-            if (!ueProjectId)
-                throw new ErrorHandler(404, 'projectId  not found')
+            if (!url) throw new ErrorHandler(404, 'projectId  not found')
             const project = await projectModel.findOne({
-                where: { projectId: ueProjectId },
+                where: { url },
             })
             if (!project)
                 throw new ErrorHandler(

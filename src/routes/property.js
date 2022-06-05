@@ -15,7 +15,7 @@ const {
     verifyProjectAdmin,
 } = require('../middleware/verifyRights')
 
-router.route('/properties-ue/:ueProjectId').get(getProjectPropertiesForUE)
+router.route('/properties-ue/:url').get(getProjectPropertiesForUE)
 router
     .route('/:projectId')
     .get(getProjectProperties)

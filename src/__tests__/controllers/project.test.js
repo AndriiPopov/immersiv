@@ -135,6 +135,12 @@ describe('Project', () => {
                 .send({ ...projectData0, url: undefined })
                 .expect(500)
                 .set('auth-token', adminAuth.token)
+
+            await api
+                .post('/api/projects')
+                .send({ ...projectData0, url: 'anotherurl' })
+                .expect(200)
+                .set('auth-token', adminAuth.token)
         })
 
         it('should not create a new project if user is not an admin', async () => {
@@ -152,6 +158,7 @@ describe('Project', () => {
             const projectOld = response.body[0]
             response = await api
                 .get(`/api/projects/${projectOld.id}`)
+                .set('auth-token', adminAuth.token)
                 .expect(200)
 
             const { adminEmail, adminPassword, ...rest } = projectData0
@@ -159,7 +166,10 @@ describe('Project', () => {
             expect(response.body).toMatchObject(rest)
         })
         it('should return 404 if no project', async () => {
-            await api.get(`/api/projects/25`).expect(404)
+            await api
+                .get(`/api/projects/25`)
+                .set('auth-token', adminAuth.token)
+                .expect(404)
         })
     })
 
@@ -170,7 +180,7 @@ describe('Project', () => {
                 .expect(200)
                 .set('auth-token', adminAuth.token)
 
-            expect(response.body).toHaveLength(3)
+            expect(response.body).toHaveLength(4)
         })
         it('should not return all projects in database if user is not an admin', async () => {
             await api.get('/api/projects').expect(401)
@@ -190,16 +200,16 @@ describe('Project', () => {
                 .set('auth-token', adminAuth.token)
                 .send(projectData01)
                 .expect(200)
-            expect(response.body).toHaveLength(3)
-            expect(response.body[2]).toMatchObject(projectData01)
+            expect(response.body).toHaveLength(4)
+            expect(response.body[3]).toMatchObject(projectData01)
 
             response = await api
                 .put(`/api/projects/${projectOld.id}`)
                 .set('auth-token', adminAuth.token)
                 .send(projectData02)
                 .expect(200)
-            expect(response.body).toHaveLength(3)
-            expect(response.body[2]).toMatchObject(projectData02)
+            expect(response.body).toHaveLength(4)
+            expect(response.body[3]).toMatchObject(projectData02)
         })
 
         it('should return error if user is not authorized', async () => {
@@ -212,7 +222,7 @@ describe('Project', () => {
     describe('get featured project', () => {
         it('should return a featured project', async () => {
             const response = await api
-                .get(`/api/projects/__featured__`)
+                .get(`/api/projects/url/__featured__`)
                 .expect(200)
 
             expect(response.body.featured).toBeTruthy()
@@ -231,7 +241,7 @@ describe('Project', () => {
                 .delete(`/api/projects/${projectOld.id}`)
                 .set('auth-token', adminAuth.token)
                 .expect(200)
-            expect(response.body).toHaveLength(2)
+            expect(response.body).toHaveLength(3)
         })
 
         // it("should not delete a featured project", async () => {
@@ -284,8 +294,8 @@ describe('Project', () => {
                 .set('auth-token', adminAuth.token)
                 .send(mediaData2)
                 .expect(200)
-            expect(response.body).toHaveLength(2)
-            let ourProject = response.body.find((i) => i.id === projectOld.id)
+            expect(response.body.media).toHaveLength(3)
+            let ourProject = response.body
             expect(ourProject.media[0]).toMatchObject(mediaData0)
             expect(ourProject.media[1]).toMatchObject(mediaData1)
             expect(ourProject.media[2]).toMatchObject(mediaData2)
@@ -312,7 +322,7 @@ describe('Project', () => {
                 .set('auth-token', adminAuth.token)
                 .expect(200)
 
-            ourProject = response.body.find((i) => i.id === projectOld.id)
+            ourProject = response.body
             expect(ourProject.media[0].id).toEqual(mediaId1)
             expect(ourProject.media[1].id).toEqual(mediaId0)
             expect(ourProject.media[2].id).toEqual(mediaId2)
@@ -323,7 +333,7 @@ describe('Project', () => {
                 .set('auth-token', adminAuth.token)
                 .expect(200)
 
-            ourProject = response.body.find((i) => i.id === projectOld.id)
+            ourProject = response.body
             expect(ourProject.media[0].id).toEqual(mediaId1)
             expect(ourProject.media[1].id).toEqual(mediaId2)
             expect(ourProject.media[2].id).toEqual(mediaId0)
@@ -333,7 +343,7 @@ describe('Project', () => {
                 .set('auth-token', adminAuth.token)
                 .expect(200)
 
-            ourProject = response.body.find((i) => i.id === projectOld.id)
+            ourProject = response.body
             expect(ourProject.media[0].id).toEqual(mediaId1)
             expect(ourProject.media[1].id).toEqual(mediaId0)
         })

@@ -8,10 +8,8 @@ const getProjectProperties = async (req, res) => {
 }
 
 const getProjectPropertiesForUE = async (req, res) => {
-    const { ueProjectId } = req.params
-    const properties = await propertyService.getProjectPropertiesForUE(
-        ueProjectId
-    )
+    const { url } = req.params
+    const properties = await propertyService.getProjectPropertiesForUE(url)
     res.json(properties)
 }
 
