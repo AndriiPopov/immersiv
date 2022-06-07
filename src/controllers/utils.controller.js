@@ -24,6 +24,8 @@ const signS3 = async (req, res) => {
 
     const AWS_S3_BUCKET = process.env.S3Bucket
 
+    const isVideo = req.query.isVideo
+
     const credentials = {
         accessKeyId: AWS_S3_KEY,
         secretAccessKey: AWS_S3_SECRET,
@@ -57,7 +59,7 @@ const signS3 = async (req, res) => {
         'putObject',
         {
             Bucket: AWS_S3_BUCKET,
-            Key: 'source/' + imageName, // filename
+            Key: (isVideo ? 'videos/' : 'source/') + imageName, // filename
             Expires: 3000, // time to expire in seconds
             ACL: 'public-read',
         },
@@ -70,7 +72,9 @@ const signS3 = async (req, res) => {
 
             const returnDataFile = {
                 signedRequest: data,
-                url: `https://${AWS_S3_BUCKET}.s3.ap-southeast-2.amazonaws.com/images/${imageName}.jpeg`,
+                url: `https://${AWS_S3_BUCKET}.s3.ap-southeast-2.amazonaws.com/${
+                    isVideo ? 'videos' : 'images'
+                }/${imageName}${isVideo ? '' : '.jpeg'}`,
                 thumbnail: `https://${AWS_S3_BUCKET}.s3.ap-southeast-2.amazonaws.com/thumbnails/${imageName}.jpeg`,
             }
             res.write(
