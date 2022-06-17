@@ -24,7 +24,7 @@ router
 router
     .route('/:projectId/:id')
     .get(getProperty)
-    .put(verifyToken, verifySuperAdmin, updateProperty)
+    .put(verifyToken, verifyProjectAdmin, updateProperty)
     .delete(verifyToken, verifySuperAdmin, deleteProperty)
 
 router

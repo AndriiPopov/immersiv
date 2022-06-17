@@ -10,11 +10,21 @@ const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
+const findAllProperties = async (projectId) => {
+    return await propertyModel.findAll({
+        where: { projectId },
+        order: [
+            ['id', 'ASC'],
+            ['Name', 'DESC'],
+        ],
+    })
+}
+
 class ProjectService {
     getProjectProperties = async (projectId) => {
         try {
             await checkProject(projectId)
-            return await propertyModel.findAll({ where: { projectId } })
+            return await findAllProperties(projectId)
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }
@@ -80,9 +90,7 @@ class ProjectService {
                 ...template,
                 projectId,
             })
-            const newProperties = await propertyModel.findAll({
-                where: { projectId },
-            })
+            const newProperties = await findAllProperties(projectId)
             return { newProperties, newProperty }
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
@@ -109,9 +117,7 @@ class ProjectService {
                     projectId,
                 },
             })
-            return await propertyModel.findAll({
-                where: { projectId },
-            })
+            return await findAllProperties(projectId)
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }
@@ -121,9 +127,7 @@ class ProjectService {
         try {
             await checkProject(projectId)
             await propertyModel.destroy({ where: { projectId, id: ids } })
-            return await propertyModel.findAll({
-                where: { projectId },
-            })
+            return await findAllProperties(projectId)
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }
@@ -141,9 +145,7 @@ class ProjectService {
                     },
                 }
             )
-            return await propertyModel.findAll({
-                where: { projectId },
-            })
+            return await findAllProperties(projectId)
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }

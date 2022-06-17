@@ -169,6 +169,19 @@ describe('Property', () => {
                 Availability: 'available',
                 Name: 'property2',
             })
+            //update property2 with project admin login
+            response = await api
+                .put(`/api/properties/${project0.id}/${propertyNew.id}`)
+                .set('auth-token', login0.token)
+                .send({ Availability: 'sold', Name: 'property3' })
+                .expect(200)
+
+            propertyNew = response.body[2]
+
+            expect(propertyNew).toMatchObject({
+                Availability: 'sold',
+                Name: 'property3',
+            })
         })
 
         it('should not create a new property if user is a project admin', async () => {
