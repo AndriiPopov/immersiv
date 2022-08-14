@@ -24,7 +24,7 @@ const signS3 = async (req, res) => {
 
     const AWS_S3_BUCKET = process.env.S3Bucket
 
-    const isVideo = req.query.isVideo
+    const isVideo = req.query.isVideo === 'true'
 
     const credentials = {
         accessKeyId: AWS_S3_KEY,

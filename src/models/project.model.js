@@ -74,6 +74,22 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 defaultValue: '[]',
             },
+            clientLogo: {
+                field: 'clientLogo',
+                type: DataTypes.TEXT,
+            },
+            projectLogo: {
+                field: 'projectLogo',
+                type: DataTypes.TEXT,
+            },
+            projectName: {
+                field: 'projectName',
+                type: DataTypes.TEXT,
+            },
+            description: {
+                field: 'description',
+                type: DataTypes.TEXT,
+            },
         },
         {
             timestamps: false,
