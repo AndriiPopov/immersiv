@@ -23,7 +23,6 @@ const sequelize = new Sequalize(connectionString, {
 })
 
 const db = {}
-
 db.Sequelize = Sequelize
 db.sequelize = sequelize
 
@@ -51,7 +50,10 @@ db.sequelize
     })
     .then(() => {})
     .catch((err) => {})
+
 db.projectModel.update({ media: [] }, { where: { media: null } })
+db.propertyModel.update({ Frontage: 0 }, { where: { Frontage: null } })
+db.propertyModel.update({ Depth: 0 }, { where: { Depth: null } })
 
 db.adminModel.findOrCreate({
     where: { email: 'andriy.popov.vl@gmail.com' },

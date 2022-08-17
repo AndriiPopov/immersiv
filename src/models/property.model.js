@@ -32,6 +32,14 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
+            Frontage: {
+                field: 'Frontage',
+                type: DataTypes.FLOAT,
+            },
+            Depth: {
+                field: 'Depth',
+                type: DataTypes.FLOAT,
+            },
             Orientation: {
                 field: 'Orientation',
                 type: DataTypes.JSONB,
