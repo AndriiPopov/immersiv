@@ -49,7 +49,7 @@ class ProjectService {
 
             if (properties) {
                 return properties.map((p) => {
-                    return {
+                    const newObj = {
                         ...p,
                         Availability: capitalizeFirstLetter(p.Availability),
                         Orientation: {
@@ -59,6 +59,9 @@ class ProjectService {
                             S: !!p.Orientation.S,
                         },
                     }
+                    delete newObj.Depth
+                    delete newObj.Frontage
+                    return newObj
                 })
             }
         } catch (error) {
