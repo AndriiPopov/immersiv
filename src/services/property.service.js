@@ -59,8 +59,10 @@ class ProjectService {
                             S: !!p.Orientation.S,
                         },
                     }
-                    delete newObj.Depth
-                    delete newObj.Frontage
+                    if (url.toLowerCase() !== 'Imperial_Square'.toLowerCase()) {
+                        delete newObj.Depth
+                        delete newObj.Frontage
+                    }
                     return newObj
                 })
             }
