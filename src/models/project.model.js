@@ -138,6 +138,18 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'backgroundVideo',
                 type: DataTypes.TEXT,
             },
+            arcwareAddress: {
+                field: 'arcwareAddress',
+                type: DataTypes.TEXT,
+            },
+            arcwarePackageId: {
+                field: 'arcwarePackageId',
+                type: DataTypes.TEXT,
+            },
+            isArcware: {
+                field: 'isArcware',
+                type: DataTypes.BOOLEAN,
+            },
         },
         {
             timestamps: false,
