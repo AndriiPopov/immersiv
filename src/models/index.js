@@ -46,10 +46,16 @@ db.propertyModel.belongsTo(db.projectModel, {
 db.sequelize
     .sync({
         alter: true,
-        // force: true,
+    //force: true,
     })
-    .then(() => {})
-    .catch((err) => {})
+    .then(() => {
+        console.log('success')
+    })
+    .catch((err) => {
+        // console.log(err)
+        console.log('not success')
+
+    })
 
 db.projectModel.update({ media: [] }, { where: { media: null } })
 db.propertyModel.update({ Frontage: 0 }, { where: { Frontage: null } })
