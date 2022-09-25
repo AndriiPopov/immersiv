@@ -150,6 +150,10 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'isArcware',
                 type: DataTypes.BOOLEAN,
             },
+            newUI: {
+                field: 'newUI',
+                type: DataTypes.BOOLEAN,
+            },
         },
         {
             timestamps: false,
