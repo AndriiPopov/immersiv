@@ -154,6 +154,22 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'newUI',
                 type: DataTypes.BOOLEAN,
             },
+            uiData: {
+                field: 'uiData',
+                type: DataTypes.TEXT,
+                get() {
+                    const value = this.getDataValue('uiData')
+                    let res = {}
+                    try {
+                        res = JSON.parse(value)
+                    } catch (er) {}
+
+                    return res
+                },
+                set(value) {
+                    this.setDataValue('uiData', JSON.stringify(value))
+                },
+            },
         },
         {
             timestamps: false,
