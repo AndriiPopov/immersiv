@@ -154,6 +154,11 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'newUI',
                 type: DataTypes.BOOLEAN,
             },
+            levelsCount: {
+                field: 'levelsCount',
+                type: DataTypes.SMALLINT,
+                defaultValue: 0,
+            },
             uiData: {
                 field: 'uiData',
                 type: DataTypes.TEXT,
