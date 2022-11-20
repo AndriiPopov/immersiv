@@ -175,6 +175,22 @@ module.exports = (sequelize, DataTypes) => {
                     this.setDataValue('uiData', JSON.stringify(value))
                 },
             },
+            isMonkeyway: {
+                field: 'isMonkeyway',
+                type: DataTypes.BOOLEAN,
+            },
+            monkeywayBaseUrl: {
+                field: 'monkeywayBaseUrl',
+                type: DataTypes.TEXT,
+            },
+            monkeywayAppEnvId: {
+                field: 'monkeywayAppEnvId',
+                type: DataTypes.TEXT,
+            },
+            monkeywayApiKey: {
+                field: 'monkeywayApiKey',
+                type: DataTypes.TEXT,
+            },
         },
         {
             timestamps: false,
