@@ -1,13 +1,11 @@
 const express = require('express')
 const path = require('path')
-const db = require('./src/models')
 
 require('express-async-errors')
 const cors = require('cors')
 // const morgan = require("morgan");
 const cookieParser = require('cookie-parser')
 const routes = require('./src/routes')
-const helmet = require('helmet')
 const compression = require('compression')
 const unknownEndpoint = require('./src/middleware/unKnownEndpoint')
 const { handleError } = require('./src/helpers/error')

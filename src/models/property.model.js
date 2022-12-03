@@ -48,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'Availability',
                 type: DataTypes.ENUM('available', 'sold', 'reserved'),
             },
+            Url: {
+                field: 'Url',
+                type: DataTypes.TEXT,
+            },
+            FacadeName: {
+                field: 'FacadeName',
+                type: DataTypes.TEXT,
+            },
         },
         {
             timestamps: false,
