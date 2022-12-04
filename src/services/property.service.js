@@ -59,7 +59,10 @@ class ProjectService {
                             S: !!p.Orientation.S,
                         },
                     }
-                    if (url.toLowerCase() === 'Imperial_Square'.toLowerCase()) {
+                    if (
+                        url.toLowerCase() === 'Imperial_Square'.toLowerCase() ||
+                        url.toLowerCase() === 'Forest_Reach'.toLowerCase()
+                    ) {
                         delete newObj.Depth
                         delete newObj.Frontage
                         delete newObj.Url
