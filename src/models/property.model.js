@@ -56,6 +56,14 @@ module.exports = (sequelize, DataTypes) => {
                 field: 'FacadeName',
                 type: DataTypes.TEXT,
             },
+            URLVirtualTour: {
+                field: 'URLVirtualTour',
+                type: DataTypes.TEXT,
+            },
+            URLPlan: {
+                field: 'URLPlan',
+                type: DataTypes.TEXT,
+            },
         },
         {
             timestamps: false,

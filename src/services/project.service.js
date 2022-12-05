@@ -1,5 +1,6 @@
 const { ErrorHandler } = require('../helpers/error')
 const { projectModel } = require('../models')
+const propertyService = require('./property.service')
 
 class ProjectService {
     getAllProjects = async () => {
@@ -17,10 +18,14 @@ class ProjectService {
             const project = await projectModel.findOne({
                 where: url === '__featured__' ? { featured: true } : { url },
                 attributes: { exclude: ['adminEmail', 'adminPassword'] },
+                raw: true,
             })
+
             if (!project) {
                 throw new ErrorHandler(404, 'project not found')
             }
+            project.properties =
+                (await propertyService.findAllProperties(project.id)) || []
 
             return project
         } catch (error) {
