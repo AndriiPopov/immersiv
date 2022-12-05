@@ -18,16 +18,15 @@ class ProjectService {
             const project = await projectModel.findOne({
                 where: url === '__featured__' ? { featured: true } : { url },
                 attributes: { exclude: ['adminEmail', 'adminPassword'] },
-                raw: true,
             })
 
             if (!project) {
                 throw new ErrorHandler(404, 'project not found')
             }
-            project.properties =
+            const properties =
                 (await propertyService.findAllProperties(project.id)) || []
 
-            return project
+            return { project, properties }
         } catch (error) {
             throw new ErrorHandler(error.statusCode, error.message)
         }

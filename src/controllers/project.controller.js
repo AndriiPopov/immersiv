@@ -16,8 +16,8 @@ const getProject = async (req, res) => {
 }
 
 const getProjectByUrl = async (req, res) => {
-    const project = await projectService.getProjectByUrl(req.params)
-    res.status(200).json(project)
+    const result = await projectService.getProjectByUrl(req.params)
+    res.status(200).json(result)
 }
 
 const updateProject = async (req, res) => {
