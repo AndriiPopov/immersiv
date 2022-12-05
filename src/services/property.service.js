@@ -59,13 +59,16 @@ class ProjectService {
                             S: !!p.Orientation.S,
                         },
                     }
-                    if (
-                        url.toLowerCase() === 'Imperial_Square'.toLowerCase()
-                        // ||
-                        // url.toLowerCase() === 'Forest_Reach'.toLowerCase()
-                    ) {
+                    if (url.toLowerCase() === 'Imperial_Square'.toLowerCase()) {
                         delete newObj.Depth
                         delete newObj.Frontage
+                        delete newObj.Url
+                        delete newObj.FacadeName
+                        delete newObj.URLVirtualTour
+                        delete newObj.URLPlan
+                    }
+
+                    if (url.toLowerCase() === 'Forest_Reach'.toLowerCase()) {
                         delete newObj.Url
                         delete newObj.FacadeName
                         delete newObj.URLVirtualTour
