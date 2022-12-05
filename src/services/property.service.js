@@ -60,8 +60,9 @@ class ProjectService {
                         },
                     }
                     if (
-                        url.toLowerCase() === 'Imperial_Square'.toLowerCase() ||
-                        url.toLowerCase() === 'Forest_Reach'.toLowerCase()
+                        url.toLowerCase() === 'Imperial_Square'.toLowerCase()
+                        // ||
+                        // url.toLowerCase() === 'Forest_Reach'.toLowerCase()
                     ) {
                         delete newObj.Depth
                         delete newObj.Frontage
@@ -138,6 +139,7 @@ class ProjectService {
     }
 
     deleteProperty = async (projectId, ids) => {
+        l
         try {
             await checkProject(projectId)
             await propertyModel.destroy({ where: { projectId, id: ids } })
