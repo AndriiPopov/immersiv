@@ -130,6 +130,15 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
+            backgroundVideoVimeo: {
+                field: 'backgroundVideoVimeo',
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
+            backgroundVideoVimeoUrl: {
+                field: 'backgroundVideoVimeoUrl',
+                type: DataTypes.TEXT,
+            },
             backgroundImage: {
                 field: 'backgroundImage',
                 type: DataTypes.TEXT,
