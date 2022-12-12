@@ -60,22 +60,22 @@ db.projectModel.update({ media: [] }, { where: { media: null } })
 db.propertyModel.update({ Frontage: 0 }, { where: { Frontage: null } })
 db.propertyModel.update({ Depth: 0 }, { where: { Depth: null } })
 
-db.adminModel.findOrCreate({
-    where: { email: 'andriy.popov.vl@gmail.com' },
-    defaults: { email: 'andriy.popov.vl@gmail.com', locked: true },
-})
+// db.adminModel.findOrCreate({
+//     where: { email: 'andriy.popov.vl@gmail.com' },
+//     defaults: { email: 'andriy.popov.vl@gmail.com', locked: true },
+// })
 
-db.adminModel.findOrCreate({
-    where: { email: 'christian@visualartstudios.com.au' },
-    defaults: {
-        email: 'christian@visualartstudios.com.au',
-        locked: true,
-    },
-})
+// db.adminModel.findOrCreate({
+//     where: { email: 'christian@visualartstudios.com.au' },
+//     defaults: {
+//         email: 'christian@visualartstudios.com.au',
+//         locked: true,
+//     },
+// })
 
-db.adminModel.findOrCreate({
-    where: { email: 'clint@visualartstudios.com.au' },
-    defaults: { email: 'clint@visualartstudios.com.au', locked: true },
-})
+// db.adminModel.findOrCreate({
+//     where: { email: 'clint@visualartstudios.com.au' },
+//     defaults: { email: 'clint@visualartstudios.com.au', locked: true },
+// })
 
 module.exports = db
