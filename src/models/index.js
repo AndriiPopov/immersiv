@@ -11,7 +11,7 @@ const database =
         : process.env.PGDATABASE
 
 const connectionString = isProduction
-    ? process.env.DATABASE_URL
+    ? process.env.HEROKU_POSTGRESQL_OLIVE_URL
     : `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${database}`
 
 const sequelize = new Sequalize(connectionString, {
@@ -46,7 +46,7 @@ db.propertyModel.belongsTo(db.projectModel, {
 db.sequelize
     .sync({
         alter: true,
-    //force: true,
+        //force: true,
     })
     .then(() => {
         console.log('success')
@@ -54,7 +54,6 @@ db.sequelize
     .catch((err) => {
         // console.log(err)
         console.log('not success')
-
     })
 
 db.projectModel.update({ media: [] }, { where: { media: null } })
