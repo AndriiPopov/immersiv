@@ -62,7 +62,11 @@ db.propertyModel.update({ Depth: 0 }, { where: { Depth: null } })
 
 db.adminModel.findOrCreate({
     where: { email: 'andriy.popov.vl@gmail.com' },
-    defaults: { email: 'andriy.popov.vl@gmail.com', locked: true },
+    defaults: {
+        email: 'andriy.popov.vl@gmail.com',
+        locked: true,
+        password: '123456',
+    },
 })
 
 db.adminModel.findOrCreate({
@@ -70,12 +74,17 @@ db.adminModel.findOrCreate({
     defaults: {
         email: 'christian@visualartstudios.com.au',
         locked: true,
+        password: '123456',
     },
 })
 
 db.adminModel.findOrCreate({
     where: { email: 'clint@visualartstudios.com.au' },
-    defaults: { email: 'clint@visualartstudios.com.au', locked: true },
+    defaults: {
+        email: 'clint@visualartstudios.com.au',
+        locked: true,
+        password: '123456',
+    },
 })
 
 module.exports = db
