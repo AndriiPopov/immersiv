@@ -142,7 +142,6 @@ class ProjectService {
     }
 
     deleteProperty = async (projectId, ids) => {
-        l
         try {
             await checkProject(projectId)
             await propertyModel.destroy({ where: { projectId, id: ids } })
