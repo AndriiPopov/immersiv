@@ -11,7 +11,7 @@ const database =
         : process.env.PGDATABASE
 
 const connectionString = isProduction
-    ? process.env.HEROKU_POSTGRESQL_OLIVE_URL
+    ? process.env.DATABASE_URL
     : `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${database}`
 
 const sequelize = new Sequalize(connectionString, {
