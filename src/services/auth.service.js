@@ -1,4 +1,4 @@
-// const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const validateUser = require('../helpers/validateUser')
 const { ErrorHandler } = require('../helpers/error')
@@ -82,11 +82,9 @@ class AuthService {
                 throw new ErrorHandler(403, 'Email or password incorrect.')
             }
 
-            const isCorrectPassword =
-                // project
-                // ?
-                password.toString() === dbPassword.toString()
-            // : await bcrypt.compare(password, dbPassword);
+            const isCorrectPassword = project
+                ? password.toString() === dbPassword.toString()
+                : await bcrypt.compare(password, dbPassword)
 
             if (!isCorrectPassword) {
                 throw new ErrorHandler(403, 'Email or password incorrect.')
