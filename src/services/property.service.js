@@ -98,6 +98,7 @@ class ProjectService {
                 Price: 0,
                 BedroomsCount: 0,
                 BathroomsCount: 0,
+                CarParkingCount: 0,
                 Frontage: 0,
                 Depth: 0,
                 Orientation: { E: true },

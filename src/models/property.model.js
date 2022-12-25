@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.FLOAT,
                 allowNull: false,
             },
+            CarParkingCount: {
+                field: 'CarParkingCount',
+                type: DataTypes.FLOAT,
+            },
             Frontage: {
                 field: 'Frontage',
                 type: DataTypes.FLOAT,
